@@ -38,7 +38,7 @@ async def regular_destribution():
         
 async def notify_about_changes(article: int, now_product_data: dict, last_product_data: dict):
     is_photo_exists = False
-    photo_path = f"{PHOTO_DIR}/{article}.jpg"
+    photo_path = f"{PHOTO_DIR}/{article}.webp"
     if os.path.exists(photo_path):
         is_photo_exists = True
     text = ""

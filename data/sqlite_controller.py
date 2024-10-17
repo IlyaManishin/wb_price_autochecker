@@ -38,16 +38,15 @@ class SqliteTable():
         return res.fetchall()
         
     def get_product_data(self, article) -> dict:
-        res = self.cur.execute("SELECT price, spp, spp_price, wallet_price FROM products WHERE article=?", (article,))
+        res = self.cur.execute("SELECT price, spp_price, wallet_price FROM products WHERE article=?", (article,))
         product = res.fetchone()
         if product:
             data = {
                 "article" : article,
                 "seller" : "",
                 "base-price" : product[0],
-                "spp" : product[1],
-                "spp-price" : product[2],
-                "wallet_price" : product[3]
+                "spp-price" : product[1],
+                "wallet_price" : product[2]
             }
             return data
         else: 
@@ -61,20 +60,18 @@ class SqliteTable():
     def add_product(self, product_data: dict):
         article = product_data["article"]
         price = product_data["base-price"]
-        spp = product_data["spp"]
         spp_price = product_data["spp-price"]
         wallet_price = product_data["wallet_price"]
         self.cur.execute(
-            "INSERT INTO products (article, price, spp, spp_price, wallet_price) VALUES (?, ?, ?, ?, ?)", (article, price, spp, spp_price, wallet_price))
+            "INSERT INTO products (article, price, spp_price, wallet_price) VALUES (?, ?, ?, ?)", (article, price, spp_price, wallet_price))
         self.con.commit()
         
     def update_product(self, product_data: dict):
         article = product_data["article"]
         price = product_data["base-price"]
-        spp = product_data["spp"]
         spp_price = product_data["spp-price"]
         wallet_price = product_data["wallet_price"]
         self.cur.execute(
-            "UPDATE products SET price=?, spp=?, spp_price=?, wallet_price=? WHERE article=?", (price, spp, spp_price, wallet_price, article)
+            "UPDATE products SET price=?, spp_price=?, wallet_price=? WHERE article=?", (price, spp_price, wallet_price, article)
         )
         self.con.commit()

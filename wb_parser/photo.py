@@ -33,8 +33,8 @@ async def regular_all_photo_update():
 async def update_article_photo(article: int, session: aiohttp.ClientSession = None):
     is_local_session = False
     basket_url = get_basket(article)
-    main_img_url = f'{basket_url}/images/big/1.jpg'
-    img_path = f"{PHOTO_DIR}/{article}.jpg"
+    main_img_url = f'{basket_url}/images/big/1.webp'
+    img_path = f"{PHOTO_DIR}/{article}.webp"
     if not session:
         session = get_session()
         is_local_session = True
